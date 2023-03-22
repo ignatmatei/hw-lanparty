@@ -1,18 +1,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef struct Player{
-  char* FirstName;
-  char* SecondName;
-  int Points;
-  struct Player* next;
+  struct Player{
+  char* firstName;
+  char* secondName;
+  int points;
 };
 
-typedef struct Team{
- int NoOfPlayers;
- int TotalPoints;
- struct Player* HeadPlayer;
- int TotalPoints;
+ struct Team{
+ int noOfPlayers;
+ int totalPoints;
+ int totalPoints;
  int status;
+ char* name;
+ Player* listOfPlayers;
  struct Team* next;
 };
+typedef struct Team Team;
+typedef struct Player Player;
