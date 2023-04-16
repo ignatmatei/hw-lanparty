@@ -1,20 +1,25 @@
 #include "useful_stuff.h"
 
-Team* addAllofTheStuffInONeFunction(){
-    FILE* f1;
-    f1 = fopen("date.in","r");
-    int i , n=getw(f1),no1 = getw(f1);
-    Team* head;
-    head = (Team*)malloc(sizeof(Team));
-    head->next = NULL;
-    head->listOfPlayers  = (Player*)malloc(no1 * sizeof(Player));
-    for(i = 0; i < no1; i++)
-     {
-
-     }
-    return head;
+void addTeamAtBeginning(Team ** head, TeamData data)
+{
+   Team *newTeam = (Team*)malloc(sizeof(Team));
+   newTeam->data = data;
+   newTeam->next = *head;
+   *head = newTeam;
 }
-//  stopAtspace()
-// {
 
-// }
+void addTeamAtEnd(Team ** head, TeamData data)
+{
+   if(*head == NULL){
+    addTeamAtBeginning(&*head, data);
+   }
+   else{
+        Team *aux = *head;
+   Team *newTeam = (Team*)malloc(sizeof(Team));
+   newTeam->data = data;
+      while(aux->next != NULL)
+        aux = aux->next;
+      aux->next = newTeam;
+      newTeam->next = NULL;
+   }
+}
