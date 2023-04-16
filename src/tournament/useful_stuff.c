@@ -36,15 +36,49 @@ void calculateTotalPoints(Team *t)
       t->data.listOfPlayers = t->data.listOfPlayers->next;
   }
 }
-int findMinPoints(Team *head, int nr)
+int findMinPoints(Team *head)
 {
     int i;
     int min = head->data.totalPoints;
-    for(i = 0; i < nr; i++)
+    while(head != NULL)
     {
-        if(head->data.totalPoints < min)
+        if(min > head->data.totalPoints)
             min = head->data.totalPoints;
-     head = head->next;
+        head = head->next;
     }
   return min;
+}
+int findBiggestPow2(int n)
+{
+    int a = 2;
+    while(a <= n)
+        a *= 2;
+    a /= 2;
+    return a;
+}
+void deleteTeam (Team **head, int points)
+{
+    if(*head == NULL) return;
+    Team *headcopy = *head;
+    if(headcopy->data.totalPoints == points)
+    {
+        *head = (*head)->next;
+        free(headcopy);
+        return;
+    }
+    Team *prev = *head;
+    while(headcopy != NULL)
+    {
+        if(headcopy->data.totalPoints != points)
+        {
+            prev = headcopy;
+            headcopy = headcopy ->next;
+        }
+        else
+        {
+            prev->next = headcopy->next;
+            free(headcopy);
+            return;
+        }
+    }
 }

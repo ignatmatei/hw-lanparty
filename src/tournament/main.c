@@ -1,7 +1,7 @@
 #include "useful_stuff.h"
 int main()
 {
-    int noOfTeams , i, j , x;
+    int noOfTeams , i, j , x , newnr, nrOfTeamsToBeDeleted, val;
     char teamName[40],playerLastName[40],playerFirstName[40];
     char gol[1000];
     TeamData currTeam;
@@ -33,6 +33,14 @@ int main()
       calculateTotalPoints(head);
       fgets(gol,10,f1);
     }
-    printf("%s ! %d",head->data.name,head->data.totalPoints);
+    newnr = findBiggestPow2(noOfTeams);
+    nrOfTeamsToBeDeleted = noOfTeams - newnr;
+    for(i = 0; i < nrOfTeamsToBeDeleted; i++)
+    {
+        val = findMinPoints(head);
+        deleteTeam(&head, val);
+    }
+    int f = findMinPoints(head);
+    printf("%d", f);
     return 0;
 }

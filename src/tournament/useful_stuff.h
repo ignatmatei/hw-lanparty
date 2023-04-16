@@ -32,5 +32,7 @@ typedef struct TeamData  TeamData;
 
 void addTeamAtBeginning(Team **, TeamData);
 void addTeamAtEnd(Team **, TeamData);
-int findMinPoints(Team *, int);
+int findMinPoints(Team *);
 void addPlayerAtBeginning(Player **, PlayerData);
+int findBiggestPow2(int );
+void deleteTeam(Team **, int);
