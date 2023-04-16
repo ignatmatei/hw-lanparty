@@ -13,11 +13,12 @@ int main()
     fscanf(f1,"%d",&noOfTeams);
     for(i = 0; i < noOfTeams; i++)
     {
+      currTeam.totalPoints = 0;
       fscanf(f1,"%d ",&currTeam.noOfPlayers);
-      /*printf("%d",currTeam.noOfPlayers);*/
       fgets(teamName,40,f1);
+      strtok(teamName,"\r");
+      strtok(teamName,"\n");
       currTeam.name = teamName;
-      /*printf("%s",currTeam.name);*/
       currTeamPLayerHead = NULL;
       for(j = 0; j < currTeam.noOfPlayers; j++)
       {
@@ -25,13 +26,13 @@ int main()
           currPlayer.lastName = playerLastName;
           currPlayer.firstName = playerFirstName;
           addPlayerAtBeginning(&currTeamPLayerHead,currPlayer);
-          /*printf("%s %s",currTeamPLayerHead->data.lastName,currTeamPLayerHead->data.firstName);*/
 
       }
       currTeam.listOfPlayers = currTeamPLayerHead;
       addTeamAtBeginning(&head, currTeam);
+      calculateTotalPoints(head);
       fgets(gol,10,f1);
     }
-    printf("%s",head->data.name);
+    printf("%s ! %d",head->data.name,head->data.totalPoints);
     return 0;
 }

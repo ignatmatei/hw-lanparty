@@ -27,16 +27,15 @@ void addPlayerAtBeginning(Player ** head, PlayerData data){
   newPlayer->next = *head;
   *head = newPlayer;
 }
-/*void calculateTotalPoints(Team **head, int nr)
+void calculateTotalPoints(Team *t)
 {
   int i;
-  for(i = 0; i < nr; i++)
+  for(i = 0; i < t->data.noOfPlayers; i++)
   {
-      int j, s = 0;
-      for(j = 0; j < head->data.noOfPlayers; j++)
-
+      t->data.totalPoints += t->data.listOfPlayers->data.points;
+      t->data.listOfPlayers = t->data.listOfPlayers->next;
   }
-}*/
+}
 int findMinPoints(Team *head, int nr)
 {
     int i;
