@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1681666426 source:c:\users\matei\documents\github\hw-lanparty\src\tournament\main.c
+1681677887 source:c:\users\matei\documents\github\hw-lanparty\src\tournament\main.c
 	"useful_stuff.h"
 
-1681664950 c:\users\matei\documents\github\hw-lanparty\src\tournament\useful_stuff.h
+1681677572 c:\users\matei\documents\github\hw-lanparty\src\tournament\useful_stuff.h
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 
-1681666527 source:c:\users\matei\documents\github\hw-lanparty\src\tournament\useful_stuff.c
+1681677592 source:c:\users\matei\documents\github\hw-lanparty\src\tournament\useful_stuff.c
 	"useful_stuff.h"
 

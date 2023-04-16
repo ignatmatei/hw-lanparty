@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 struct PlayerData{
  char *firstName;
-  char *secondName;
+  char *lastName;
   int points;
 };
 struct TeamData{
@@ -32,4 +32,5 @@ typedef struct TeamData  TeamData;
 
 void addTeamAtBeginning(Team **, TeamData);
 void addTeamAtEnd(Team **, TeamData);
-
+int findMinPoints(Team *, int);
+void addPlayerAtBeginning(Player **, PlayerData);
