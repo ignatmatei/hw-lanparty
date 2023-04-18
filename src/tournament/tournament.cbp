@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="d.in" />
+		<Unit filename="d1.in" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
