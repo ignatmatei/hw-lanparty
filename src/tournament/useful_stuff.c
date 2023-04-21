@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "useful_stuff.h"
 
 void printList(Team* head)
@@ -147,7 +146,8 @@ Queue* createQueue()
     Queue* q;
     q = (Queue*)malloc(sizeof(Queue));
     if (q == NULL) return NULL;
-    q->front = q->rear = NULL;
+    q->front = NULL;
+    q->rear = NULL;
     return q;
 }
 
@@ -167,20 +167,26 @@ void enQueue(Queue* q, MatchData data)
 }
 int isQueueEmpty(Queue* q)
 {
-    return(q->front == NULL);
+ //   if (q->front == NULL)
+        return q->front == NULL;
+
+    //if (strcmp(q->front->data.team2.name, q->rear->data.team2.name) ==0)
+    //{
+    //    printf("este egat");
+    //    q->front->next == NULL;
+    //}
+
+    //return q->front == NULL;
 }
 MatchData deQueue(Queue* q)
 {
-    Match* aux;
-    MatchData data;
-    ///if(isQueueEmpty(q)) return;
-    aux = q->front;
-    data = aux->data;
-    q->front = (q->front)->next;
+    Match*  aux = q->front;
+    MatchData data = aux->data;
+    q->front = (q->front)->next;;
     free(aux);
     return data;
 }
-/*
+
 void deleteQueue(Queue *q)
 {
     Match *aux;
@@ -192,4 +198,72 @@ void deleteQueue(Queue *q)
     }
     free(q);
 }
-*/
+
+Node* newNode(TeamData data)
+{
+    Node* node = (Node*)malloc(sizeof(Node));
+    node->data = data;
+    node->left = node->right = NULL;
+    node->height = 0;
+    return node;
+}
+
+Node* insert(Node* node, TeamData key)
+{
+    if (node == NULL)
+        return newNode(key);
+    if (key.totalPoints < node->data.totalPoints)
+        node->left = insert(node->left, key);
+    if (key.totalPoints > node->data.totalPoints)
+        node->right = insert(node->right, key);
+    if (key.totalPoints == node->data.totalPoints && strcmp(key.name, node->data.name) < 0)
+        node->left = insert(node->left, key);
+    if(key.totalPoints == node->data.totalPoints && strcmp(key.name, node->data.name) > 0)
+        node->right = insert(node->right, key);
+    return node;
+
+}
+
+Node* minValueNode(Node* node)
+{
+    Node* aux = node;
+    while (aux->left != NULL)
+        aux = aux->left;
+    return aux;
+}
+
+Node* deleteNode(Node* root, TeamData key)
+{
+    if (root == NULL) return root;
+    if (key.totalPoints < root->data.totalPoints)
+        root->left = deleteNode(root->left, key);
+    if (key.totalPoints > root->data.totalPoints)
+        root->right = deleteNode(root->right, key);
+    if(key.totalPoints == root->data.totalPoints && strcmp(key.name, root->data.name) < 0)
+        root->left = deleteNode(root->left, key);
+    if (key.totalPoints == root->data.totalPoints && strcmp(key.name, root->data.name) > 0)
+        root->right = deleteNode(root->right, key);
+    if (key.totalPoints == root->data.totalPoints && strcmp(key.name, root->data.name) == 0)
+    {
+        if (root->left == NULL)
+        {
+            Node* temp = root;
+            root = root->right;
+            free(temp);
+            return root;
+        }
+        else
+            if (root->right == NULL){
+                Node* temp = root;
+                root = root->left;
+                free(temp);
+                return root;
+
+         }
+        Node* temp = minValueNode(root->right);
+        root->data = temp->data;
+        root->right = deleteNode(root->right, temp->data);
+    }
+    return root;
+
+}

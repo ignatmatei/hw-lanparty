@@ -39,6 +39,13 @@ struct Q
 {
     struct Match* front, * rear;
 };
+struct N
+{
+    struct TeamData data;
+    int height;
+    struct N* left;
+    struct N* right;
+};
 typedef struct Team Team;
 typedef struct Player Player;
 typedef struct PlayerData PlayerData;
@@ -46,6 +53,7 @@ typedef struct TeamData  TeamData;
 typedef struct MatchData MatchData;
 typedef struct Q Queue;
 typedef struct Match Match;
+typedef struct N Node;
 void addTeamAtBeginning(Team**, TeamData);
 void addTeamAtEnd(Team**, TeamData);
 float findMinPoints(Team*);
@@ -63,3 +71,8 @@ void push(Team**, TeamData);
 int isStackEmpty(Team*);
 TeamData pop(Team**);
 void deleteStack(Team**);
+void deleteQueue(Queue*);
+Node* newNode(TeamData);
+Node* insert(Node*, TeamData);
+Node* minValueNode(Node*);
+Node* deleteNode(Node*, TeamData);

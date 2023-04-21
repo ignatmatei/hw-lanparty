@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "useful_stuff.h"
 int main()
 {
@@ -12,7 +11,8 @@ int main()
     Team* head = NULL, * winnerStack = NULL, * loserStack = NULL;
     Player* currTeamPLayerHead;
     MatchData currMatch;
-    Queue* q;
+    Queue* q = NULL;
+    Node* root = NULL, *currNode = NULL , *b = NULL;
     FILE* f;
     FILE* f1;
     tasks = (int*)(malloc(5 * sizeof(int)));
@@ -92,6 +92,7 @@ int main()
         }
         while (newnr >= 2)
         {
+
             while (!isQueueEmpty(q))
             {
                 currMatch = deQueue(q);
@@ -109,6 +110,7 @@ int main()
                 }
                 printf("%s \t %s \n", currMatch.team1.name, currMatch.team2.name);
             }
+            q->rear = NULL;
             printf("The losers of the round: \n");
             while (!isStackEmpty(loserStack))
             {
@@ -123,11 +125,19 @@ int main()
                 if (i % 2 == 0)
                 {
                     t1 = pop(&winnerStack);
+                    if (newnr == 8)
+                    {
+                        root = insert(root, t1);
+                    }
                     printf("%s \n", t1.name);
                 }
                 else
                 {
                     t2 = pop(&winnerStack);
+                    if (newnr == 8)
+                    {
+                        root = insert(root, t2);
+                    }
                     printf("%s \n", t2.name);
                     currMatch.team1 = t1;
                     currMatch.team2 = t2;
@@ -137,5 +147,16 @@ int main()
             }
         }
     }
+    if (tasks[3])
+    {
+        printf("Last 8 \n");
+        for (i = 0; i < 8; i++)
+        {
+            currNode = minValueNode(root);
+            b = deleteNode(root, currNode->data);
+            printf("%s \n", b->data.name);
+        }
+   }
     return 0;
 }
+
