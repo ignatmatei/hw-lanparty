@@ -76,3 +76,5 @@ Node* newNode(TeamData);
 Node* insert(Node*, TeamData);
 Node* minValueNode(Node*);
 Node* deleteNode(Node*, TeamData);
+void inorder(Node*);
+Node* maxValueNode(Node*);

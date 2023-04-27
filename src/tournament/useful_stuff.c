@@ -267,3 +267,21 @@ Node* deleteNode(Node* root, TeamData key)
     return root;
 
 }
+
+void inorder(Node* root)
+{
+    if (root)
+    {
+        inorder(root->left);
+        printf("%s ", root->data.name);
+        inorder(root->right);
+    }
+}
+
+Node* maxValueNode(Node* node)
+{
+    Node* aux = node;
+        while (aux->right != NULL)
+            aux = aux->right;
+    return aux;
+}

@@ -152,11 +152,13 @@ int main()
         printf("Last 8 \n");
         for (i = 0; i < 8; i++)
         {
-            currNode = minValueNode(root);
-            b = deleteNode(root, currNode->data);
-            printf("%s \n", b->data.name);
+            currNode = maxValueNode(root);
+            printf("%s ", currNode->data.name);
+            root = deleteNode(root, currNode->data);
+            //inorder(root);
+            //printf("\n");
         }
+
    }
     return 0;
 }
-
