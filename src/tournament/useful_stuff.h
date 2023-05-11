@@ -88,4 +88,6 @@ Node* LRRotation(Node*);
 Node* RLRotation(Node*);
 Node* insertAVL(Node*, TeamData);
 void printNodesLevel2(Node*);
+void changeHeightAfterAVL(Node*);
 void PrintAllLevels(Node*);
+void mateiorder(Node*);

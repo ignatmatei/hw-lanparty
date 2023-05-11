@@ -283,7 +283,7 @@ void inorder(Node* root)
     if (root)
     {
         inorder(root->left);
-        printf("%s ", root->data.name);
+        printf("%s \n", root->data.name);
         inorder(root->right);
     }
 }
@@ -379,13 +379,18 @@ void printNodesLevel2(Node* root)
 {
     if (root)
     {
-        printNodesLevel2(root->left);
-        if (root->height == 0)
-            printf("%s ", root->data.name);
-        printNodesLevel2(root->right);
+        printf("%s \n%s \n%s \n%s", root->right->right->data.name, root->right->left->data.name, root->left->right->data.name, root->left->left->data.name);
     }
 }
-
+void changeHeightAfterAVL(Node* root)
+{
+    if (root)
+    {
+        root->height = height(root);
+        changeHeightAfterAVL(root->left);
+        changeHeightAfterAVL(root->right);
+    }
+}
 void printAllLevels(Node* root)
 {
     if (root)
@@ -393,5 +398,15 @@ void printAllLevels(Node* root)
         printAllLevels(root->left);
         printf("%s = %d  ", root->data.name, root->height);
         printAllLevels(root->right);
+    }
+}
+
+void mateiorder(Node* root)
+{
+    if (root)
+    {
+        printf("%s \n", root->data.name);
+        mateiorder(root->left);
+        mateiorder(root->right);
     }
 }
