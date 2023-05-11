@@ -1,11 +1,10 @@
 #include "useful_stuff.h"
-
 void printList(Team* head, FILE* fout)
 {
     int i;
     while (head != NULL)
     {
-        fprintf(fout,"%s \n", head->data.name);
+        fprintf(fout, "%s \n", head->data.name);
         head = head->next;
     }
 }
@@ -47,7 +46,7 @@ void calculateTotalPoints(Team* t)
     }
     t->data.totalPoints /= t->data.noOfPlayers;
     float value = (int)(t->data.totalPoints * 100 + 0.5);
-    t->data.totalPoints = (float) value / 100;
+    t->data.totalPoints = (float)value / 100;
 }
 float findMinPoints(Team* head)
 {
@@ -163,21 +162,21 @@ void enQueue(Queue* q, MatchData data)
 }
 int isQueueEmpty(Queue* q)
 {
-        return q->front == NULL;
+    return q->front == NULL;
 }
 MatchData deQueue(Queue* q)
 {
-    Match*  aux = q->front;
+    Match* aux = q->front;
     MatchData data = aux->data;
     q->front = (q->front)->next;;
     free(aux);
     return data;
 }
 
-void deleteQueue(Queue *q)
+void deleteQueue(Queue* q)
 {
-    Match *aux;
-    while(!isQueueEmpty(q))
+    Match* aux;
+    while (!isQueueEmpty(q))
     {
         aux = q->front;
         q->front = q->front->next;
@@ -205,7 +204,7 @@ Node* insert(Node* node, TeamData key)
         node->right = insert(node->right, key);
     if (key.totalPoints == node->data.totalPoints && strcmp(key.name, node->data.name) < 0)
         node->left = insert(node->left, key);
-    if(key.totalPoints == node->data.totalPoints && strcmp(key.name, node->data.name) > 0)
+    if (key.totalPoints == node->data.totalPoints && strcmp(key.name, node->data.name) > 0)
         node->right = insert(node->right, key);
     return node;
 
@@ -235,7 +234,7 @@ Node* deleteNode(Node* root, TeamData key)
         root->left = deleteNode(root->left, key);
     if (key.totalPoints > root->data.totalPoints)
         root->right = deleteNode(root->right, key);
-    if(key.totalPoints == root->data.totalPoints && strcmp(key.name, root->data.name) < 0)
+    if (key.totalPoints == root->data.totalPoints && strcmp(key.name, root->data.name) < 0)
         root->left = deleteNode(root->left, key);
     if (key.totalPoints == root->data.totalPoints && strcmp(key.name, root->data.name) > 0)
         root->right = deleteNode(root->right, key);
@@ -249,13 +248,13 @@ Node* deleteNode(Node* root, TeamData key)
             return root;
         }
         else
-            if (root->right == NULL){
+            if (root->right == NULL) {
                 Node* temp = root;
                 root = root->left;
                 free(temp);
                 return root;
 
-         }
+            }
         Node* temp = minValueNode(root->right);
         root->data = temp->data;
         root->right = deleteNode(root->right, temp->data);
@@ -277,8 +276,8 @@ void inorder(Node* root)
 Node* maxValueNode(Node* node)
 {
     Node* aux = node;
-        while (aux->right != NULL)
-            aux = aux->right;
+    while (aux->right != NULL)
+        aux = aux->right;
     return aux;
 }
 int height(Node* root)
@@ -308,7 +307,7 @@ Node* RightRotation(Node* z)
     y->right = z;
     z->left = T3;
     z->height = max(nodeHeight(z->left), nodeHeight(z->right)) + 1;
-    y->height = max(nodeHeight(y->left),nodeHeight(y->right)) + 1;
+    y->height = max(nodeHeight(y->left), nodeHeight(y->right)) + 1;
     return y;
 }
 Node* LeftRotation(Node* z)
@@ -365,7 +364,7 @@ void printNodesLevel2(Node* root, FILE* fout)
 {
     if (root)
     {
-        fprintf(fout,"%s \n%s \n%s \n%s", root->right->right->data.name, root->right->left->data.name, root->left->right->data.name, root->left->left->data.name);
+        fprintf(fout, "%s \n%s \n%s \n%s", root->right->right->data.name, root->right->left->data.name, root->left->right->data.name, root->left->left->data.name);
     }
 }
 void changeHeightAfterAVL(Node* root)
