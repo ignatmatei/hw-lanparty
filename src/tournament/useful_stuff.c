@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "useful_stuff.h"
 
-void printList(Team* head)
+void printList(Team* head, FILE* fout)
 {
     int i;
     while (head != NULL)
     {
-        printf("%s \n", head->data.name);
+        fprintf(fout,"%s \n", head->data.name);
         head = head->next;
     }
 }
@@ -99,10 +99,6 @@ void deleteTeam(Team** head, float points)
 void push(Team** top, TeamData data)
 {
     Team* newTeam = (Team*)malloc(sizeof(Team));
-    if (newTeam == NULL) {
-        printf("!!!!!!!!!!!!!");
-        return;
-    }
     newTeam->data = data;
     newTeam->next = *top;
     *top = newTeam;
@@ -168,16 +164,7 @@ void enQueue(Queue* q, MatchData data)
 }
 int isQueueEmpty(Queue* q)
 {
- //   if (q->front == NULL)
         return q->front == NULL;
-
-    //if (strcmp(q->front->data.team2.name, q->rear->data.team2.name) ==0)
-    //{
-    //    printf("este egat");
-    //    q->front->next == NULL;
-    //}
-
-    //return q->front == NULL;
 }
 MatchData deQueue(Queue* q)
 {
@@ -375,11 +362,11 @@ Node* insertAVL(Node* node, TeamData key)
     return node;
 }
 
-void printNodesLevel2(Node* root)
+void printNodesLevel2(Node* root, FILE* fout)
 {
     if (root)
     {
-        printf("%s \n%s \n%s \n%s", root->right->right->data.name, root->right->left->data.name, root->left->right->data.name, root->left->left->data.name);
+        fprintf(fout,"%s \n%s \n%s \n%s", root->right->right->data.name, root->right->left->data.name, root->left->right->data.name, root->left->left->data.name);
     }
 }
 void changeHeightAfterAVL(Node* root)

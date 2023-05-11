@@ -55,7 +55,8 @@ int main()
             fgets(gol, 10, f1);
         }
         fclose(f1);
-        printList(head);
+        fout = fopen("r.out", "w");
+        printList(head, fout);
     }
     if (tasks[1])
     {
@@ -65,7 +66,7 @@ int main()
         {
             val = findMinPoints(head);
             deleteTeam(&head, val);
-            printList(head);
+            printList(head,fout);
         }
     }
     if (tasks[2])
@@ -95,8 +96,8 @@ int main()
         }
         while (newnr >= 2)
         {
-            printf("\n");
-            printf("--- ROUND NO.%d \n", currRound);
+            fprintf(fout,"\n");
+            fprintf(fout,"--- ROUND NO.%d \n", currRound);
             while (!isQueueEmpty(q))
             {
                 currMatch = deQueue(q);
@@ -112,7 +113,7 @@ int main()
                     push(&winnerStack, currMatch.team1);
                     push(&loserStack, currMatch.team2);
                 }
-                printf("%s \t - \t %s \n", currMatch.team1.name, currMatch.team2.name);
+                fprintf(fout,"%s \t - \t %s \n", currMatch.team1.name, currMatch.team2.name);
             }
             q->rear = NULL;
             //printf("The losers of the round: \n");
@@ -123,8 +124,8 @@ int main()
             }
             i = 0;
             newnr /= 2;
-            printf("\n");
-            printf("WINNERS OF ROUND NO.%d \n",currRound);
+            fprintf(fout,"\n");
+            fprintf(fout,"WINNERS OF ROUND NO.%d \n",currRound);
             currRound++;
             while (i < newnr)
             {
@@ -136,7 +137,7 @@ int main()
                         root = insert(root, t1);
                         //rootAVL = insertAVL(rootAVL, t1);
                     }
-                    printf("%s \t - %.2f \n", t1.name,t1.totalPoints);
+                    fprintf(fout,"%s \t - %.2f \n", t1.name,t1.totalPoints);
                 }
                 else
                 {
@@ -146,7 +147,7 @@ int main()
                         root = insert(root, t2);
                        // rootAVL = insertAVL(rootAVL, t2);
                     }
-                    printf("%s \t - %.2f \n", t2.name,t2.totalPoints);
+                    fprintf(fout,"%s \t - %.2f \n", t2.name,t2.totalPoints);
                     currMatch.team1 = t1;
                     currMatch.team2 = t2;
                     enQueue(q, currMatch);
@@ -157,12 +158,12 @@ int main()
     }
     if (tasks[3])
     {
-        printf("\n");
-        printf("TOP 8 TEAMS: \n");
+        fprintf(fout,"\n");
+        fprintf(fout,"TOP 8 TEAMS: \n");
         for (i = 0; i < 8; i++)
         {
             currNode = maxValueNode(root);
-            printf("%s\t- %.2f \n", currNode->data.name,currNode->data.totalPoints);
+            fprintf(fout,"%s\t- %.2f \n", currNode->data.name,currNode->data.totalPoints);
             rootAVL = insertAVL(rootAVL, currNode->data);
             root = deleteNode(root, currNode->data);
 
@@ -171,9 +172,9 @@ int main()
    }
     if (tasks[4])
     {
-        printf("\n");
-        printf("THE LEVEL 2 TEAMS ARE: \n");
-        printNodesLevel2(rootAVL);
+        fprintf(fout,"\n");
+        fprintf(fout,"THE LEVEL 2 TEAMS ARE: \n");
+        printNodesLevel2(rootAVL,fout);
     }
     return 0;
 }
