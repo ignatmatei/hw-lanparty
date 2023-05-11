@@ -71,6 +71,7 @@ int main()
     {
         q = createQueue();
         i = 0;
+        int currRound = 1;
         while (i < newnr)
         {
             if (i % 2 == 0)
@@ -93,7 +94,8 @@ int main()
         }
         while (newnr >= 2)
         {
-
+            printf("\n");
+            printf("--- ROUND NO.%d \n", currRound);
             while (!isQueueEmpty(q))
             {
                 currMatch = deQueue(q);
@@ -109,18 +111,20 @@ int main()
                     push(&winnerStack, currMatch.team1);
                     push(&loserStack, currMatch.team2);
                 }
-                printf("%s \t %s \n", currMatch.team1.name, currMatch.team2.name);
+                printf("%s \t - \t %s \n", currMatch.team1.name, currMatch.team2.name);
             }
             q->rear = NULL;
-            printf("The losers of the round: \n");
+            //printf("The losers of the round: \n");
             while (!isStackEmpty(loserStack))
             {
                 t1 = pop(&loserStack);
-                printf("%s \n", t1.name);
+                //printf("%s \n", t1.name);
             }
             i = 0;
             newnr /= 2;
-            printf("The winners of the round: \n");
+            printf("\n");
+            printf("WINNERS OF ROUND NO.%d \n",currRound);
+            currRound++;
             while (i < newnr)
             {
                 if (i % 2 == 0)
@@ -129,9 +133,8 @@ int main()
                     if (newnr == 8)
                     {
                         root = insert(root, t1);
-                       //rootAVL = insertAVL(rootAVL, t1);
                     }
-                    printf("%s \n", t1.name);
+                    printf("%s \t - %f \n", t1.name,t1.totalPoints);
                 }
                 else
                 {
@@ -139,9 +142,8 @@ int main()
                     if (newnr == 8)
                     {
                         root = insert(root, t2);
-                        //rootAVL = insertAVL(rootAVL, t2);
                     }
-                    printf("%s \n", t2.name);
+                    printf("%s \t - %f \n", t2.name,t2.totalPoints);
                     currMatch.team1 = t1;
                     currMatch.team2 = t2;
                     enQueue(q, currMatch);
@@ -152,6 +154,7 @@ int main()
     }
     if (tasks[3])
     {
+        printf("\n");
         printf("TOP 8 TEAMS: \n");
         for (i = 0; i < 8; i++)
         {
@@ -165,6 +168,8 @@ int main()
    }
     if (tasks[4])
     {
+        printf("\n");
+        printf("THE LEVEL 2 TEAMS ARE: \n");
         printNodesLevel2(rootAVL);
     }
     return 0;

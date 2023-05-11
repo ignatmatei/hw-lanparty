@@ -4,13 +4,11 @@
 void printList(Team* head)
 {
     int i;
-    printf("head of list \n");
     while (head != NULL)
     {
         printf("%s \n", head->data.name);
         head = head->next;
     }
-    printf("end of list \n");
 }
 
 void addTeamAtBeginning(Team** head, TeamData data) {
