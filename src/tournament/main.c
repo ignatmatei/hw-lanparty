@@ -17,6 +17,7 @@ int main()
     Node* rootAVL = NULL;
     FILE* f;
     FILE* f1;
+    FILE* fout;
     tasks = (int*)(malloc(5 * sizeof(int)));
     f = fopen("c.in", "r");
     fscanf(f, "%d %d %d %d %d", &tasks[0], &tasks[1], &tasks[2], &tasks[3], &tasks[4]);
@@ -99,7 +100,7 @@ int main()
             while (!isQueueEmpty(q))
             {
                 currMatch = deQueue(q);
-                if (currMatch.team2.totalPoints > currMatch.team1.totalPoints)
+                if (currMatch.team2.totalPoints > currMatch.team1.totalPoints || (currMatch.team2.totalPoints == currMatch.team1.totalPoints && strcmp(currMatch.team2.name,currMatch.team1.name) < 0))
                 {
                     currMatch.team2.totalPoints++;
                     push(&winnerStack, currMatch.team2);
@@ -133,8 +134,9 @@ int main()
                     if (newnr == 8)
                     {
                         root = insert(root, t1);
+                        //rootAVL = insertAVL(rootAVL, t1);
                     }
-                    printf("%s \t - %f \n", t1.name,t1.totalPoints);
+                    printf("%s \t - %.2f \n", t1.name,t1.totalPoints);
                 }
                 else
                 {
@@ -142,8 +144,9 @@ int main()
                     if (newnr == 8)
                     {
                         root = insert(root, t2);
+                       // rootAVL = insertAVL(rootAVL, t2);
                     }
-                    printf("%s \t - %f \n", t2.name,t2.totalPoints);
+                    printf("%s \t - %.2f \n", t2.name,t2.totalPoints);
                     currMatch.team1 = t1;
                     currMatch.team2 = t2;
                     enQueue(q, currMatch);
@@ -159,7 +162,7 @@ int main()
         for (i = 0; i < 8; i++)
         {
             currNode = maxValueNode(root);
-            printf("%s\t- %f \n", currNode->data.name,currNode->data.totalPoints);
+            printf("%s\t- %.2f \n", currNode->data.name,currNode->data.totalPoints);
             rootAVL = insertAVL(rootAVL, currNode->data);
             root = deleteNode(root, currNode->data);
 

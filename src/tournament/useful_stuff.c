@@ -47,6 +47,8 @@ void calculateTotalPoints(Team* t)
         t->data.listOfPlayers = t->data.listOfPlayers->next;
     }
     t->data.totalPoints /= t->data.noOfPlayers;
+    float value = (int)(t->data.totalPoints * 100 + 0.5);
+    t->data.totalPoints = (float) value / 100;
 }
 float findMinPoints(Team* head)
 {
