@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "useful_stuff.h"
 int main()
 {
@@ -12,7 +13,8 @@ int main()
     Player* currTeamPLayerHead;
     MatchData currMatch;
     Queue* q = NULL;
-    Node* root = NULL, *currNode = NULL , *b = NULL;
+    Node* root = NULL, *currNode = NULL;
+    Node* rootAVL = NULL;
     FILE* f;
     FILE* f1;
     tasks = (int*)(malloc(5 * sizeof(int)));
@@ -76,7 +78,6 @@ int main()
                 t1 = head->data;
                 t1.name = (char*)malloc(strlen(head->data.name) * sizeof(char));
                 strcpy(t1.name, head->data.name);
-
             }
             else
             {
@@ -128,6 +129,7 @@ int main()
                     if (newnr == 8)
                     {
                         root = insert(root, t1);
+                       //rootAVL = insertAVL(rootAVL, t1);
                     }
                     printf("%s \n", t1.name);
                 }
@@ -137,6 +139,7 @@ int main()
                     if (newnr == 8)
                     {
                         root = insert(root, t2);
+                        //rootAVL = insertAVL(rootAVL, t2);
                     }
                     printf("%s \n", t2.name);
                     currMatch.team1 = t1;
@@ -149,16 +152,20 @@ int main()
     }
     if (tasks[3])
     {
-        printf("Last 8 \n");
+        printf("TOP 8 TEAMS: \n");
         for (i = 0; i < 8; i++)
         {
             currNode = maxValueNode(root);
-            printf("%s ", currNode->data.name);
+            printf("%s\t- %f \n", currNode->data.name,currNode->data.totalPoints);
+            rootAVL = insertAVL(rootAVL, currNode->data);
             root = deleteNode(root, currNode->data);
-            //inorder(root);
-            //printf("\n");
+
         }
 
    }
+    if (tasks[4])
+    {
+        printNodesLevel2(rootAVL);
+    }
     return 0;
 }

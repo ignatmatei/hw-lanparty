@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "useful_stuff.h"
 
 void printList(Team* head)
@@ -231,7 +232,16 @@ Node* minValueNode(Node* node)
         aux = aux->left;
     return aux;
 }
-
+int isKeyBigger(Node* node, TeamData key)
+{
+    if (key.totalPoints > node->data.totalPoints)
+        return 1;
+    if (key.totalPoints < node->data.totalPoints)
+        return 0;
+    if (strcmp(key.name, node->data.name) > 0)
+        return 1;
+    return 0;
+}
 Node* deleteNode(Node* root, TeamData key)
 {
     if (root == NULL) return root;
@@ -284,4 +294,104 @@ Node* maxValueNode(Node* node)
         while (aux->right != NULL)
             aux = aux->right;
     return aux;
+}
+int height(Node* root)
+{
+    int hs, hd;
+    if (root == NULL)
+        return -1;
+    hs = height(root->left);
+    hd = height(root->right);
+    return 1 + ((hs > hd) ? hs : hd);
+}
+int nodeHeight(Node* root)
+{
+    if (root == NULL) return -1;
+    else return root->height;
+}
+int max(int a, int b)
+{
+    if (a > b)
+        return a;
+    return b;
+}
+Node* RightRotation(Node* z)
+{
+    Node* y = z->left;
+    Node* T3 = y->right;
+    y->right = z;
+    z->left = T3;
+    z->height = max(nodeHeight(z->left), nodeHeight(z->right)) + 1;
+    y->height = max(nodeHeight(y->left),nodeHeight(y->right)) + 1;
+    return y;
+}
+Node* LeftRotation(Node* z)
+{
+    Node* y = z->right;
+    Node* T2 = y->left;
+    y->left = z;
+    z->right = T2;
+    z->height = max(nodeHeight(z->left), nodeHeight(z->right)) + 1;
+    y->height = max(nodeHeight(y->left), nodeHeight(y->right)) + 1;
+    return y;
+}
+Node* LRRotation(Node* z)
+{
+    z->left = LeftRotation(z->left);
+    return(RightRotation(z));
+}
+Node* RLRotation(Node* z)
+{
+    z->right = (RightRotation(z->right));
+    return LeftRotation(z);
+}
+
+Node* insertAVL(Node* node, TeamData key)
+{
+    if (node == NULL)
+    {
+        node = (Node*)malloc(sizeof(Node));
+        node->data = key;
+        node->height = 0;
+        node->left = node->right = NULL;
+        return node;
+    }
+
+    if (isKeyBigger(node, key) == 0)
+        node->left = insertAVL(node->left, key);
+    else if (isKeyBigger(node, key) == 1)
+        node->right = insertAVL(node->right, key);
+    else return node;
+    node->height = 1 + max(nodeHeight(node->left), nodeHeight(node->right));
+    int k = (nodeHeight(node->left) - nodeHeight(node->right));
+    if (k > 1 && isKeyBigger(node->left, key) == 0)
+        return RightRotation(node);
+    if (k < -1 && isKeyBigger(node->right, key) == 1)
+        return LeftRotation(node);
+    if (k > 1 && isKeyBigger(node->left, key) == 1)
+        return RLRotation(node);
+    if (k < -1 && isKeyBigger(node->right, key) == 0)
+        return LRRotation(node);
+    return node;
+}
+
+void printNodesLevel2(Node* root)
+{
+    if (root)
+    {
+        printNodesLevel2(root->left);
+        if (root->height == 0)
+            printf("%s ", root->data.name);
+        printNodesLevel2(root->right);
+    }
+}
+
+void printAllLevels(Node* root)
+{
+    if (root)
+    {
+        printAllLevels(root->left);
+        printf("%s = %d  ", root->data.name, root->height);
+        printAllLevels(root->right);
+    }
 }
