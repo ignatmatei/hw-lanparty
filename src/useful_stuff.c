@@ -4,7 +4,7 @@ void printList(Team* head, FILE* fout)
     int i;
     while (head != NULL)
     {
-        fprintf(fout, "%s \n", head->data.name);
+        fprintf(fout, "%s\n", head->data.name);
         head = head->next;
     }
 }
@@ -45,8 +45,8 @@ void calculateTotalPoints(Team* t)
         t->data.listOfPlayers = t->data.listOfPlayers->next;
     }
     t->data.totalPoints /= t->data.noOfPlayers;
-    float value = (int)(t->data.totalPoints * 100 + 0.5);
-    t->data.totalPoints = (float)value / 100;
+    /*float value = (int)(t->data.totalPoints * 100 + 0.5);
+    t->data.totalPoints = (float)value / 100;*/
 }
 float findMinPoints(Team* head)
 {
@@ -364,7 +364,7 @@ void printNodesLevel2(Node* root, FILE* fout)
 {
     if (root)
     {
-        fprintf(fout, "%s \n%s \n%s \n%s", root->right->right->data.name, root->right->left->data.name, root->left->right->data.name, root->left->left->data.name);
+        fprintf(fout, "%s\n%s\n%s\n%s", root->right->right->data.name, root->right->left->data.name, root->left->right->data.name, root->left->left->data.name);
     }
 }
 void changeHeightAfterAVL(Node* root)
@@ -390,7 +390,7 @@ void mateiorder(Node* root)
 {
     if (root)
     {
-        printf("%s \n", root->data.name);
+        printf("%s\n", root->data.name);
         mateiorder(root->left);
         mateiorder(root->right);
     }

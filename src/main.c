@@ -30,6 +30,8 @@ int main()
             fgets(teamName, 40, f);
             strtok(teamName, "\r");
             strtok(teamName, "\n");
+			if(teamName[strlen(teamName) - 1] == ' ')
+				teamName[strlen(teamName) - 1] = '\0';
             currTeam.name = (char*)malloc(strlen(teamName) * sizeof(char));
             strcpy(currTeam.name, teamName);
             currTeamPLayerHead = NULL;
@@ -53,7 +55,8 @@ int main()
     }
     fclose(f); 
     fout = fopen("r.out", "w");
-        printList(head, fout);
+       if(tasks[1] == 0)
+		   printList(head, fout);
     }
     if (tasks[1])
     {
@@ -63,8 +66,8 @@ int main()
         {
             val = findMinPoints(head);
             deleteTeam(&head, val);
-            printList(head, fout);
         }
+		printList(head, fout);
     }
     if (tasks[2])
     {
@@ -94,11 +97,11 @@ int main()
         while (newnr >= 2)
         {
             fprintf(fout, "\n");
-            fprintf(fout, "--- ROUND NO.%d \n", currRound);
+            fprintf(fout, "--- ROUND NO:%d\n", currRound);
             while (!isQueueEmpty(q))
             {
                 currMatch = deQueue(q);
-                if (currMatch.team2.totalPoints > currMatch.team1.totalPoints || (currMatch.team2.totalPoints == currMatch.team1.totalPoints && strcmp(currMatch.team2.name, currMatch.team1.name) < 0))
+                if (currMatch.team2.totalPoints >= currMatch.team1.totalPoints /*|| (currMatch.team2.totalPoints == currMatch.team1.totalPoints && strcmp(currMatch.team2.name, currMatch.team1.name) > 0)*/)
                 {
                     currMatch.team2.totalPoints++;
                     push(&winnerStack, currMatch.team2);
@@ -110,19 +113,21 @@ int main()
                     push(&winnerStack, currMatch.team1);
                     push(&loserStack, currMatch.team2);
                 }
-                fprintf(fout, "%s \t - \t %s \n", currMatch.team1.name, currMatch.team2.name);
+                fprintf(fout, "%-33s", currMatch.team1.name);
+				fprintf(fout,"-");
+				fprintf(fout,"%33s\n",currMatch.team2.name);
             }
             q->rear = NULL;
-            //printf("The losers of the round: \n");
+            //printf("The losers of the round:\n");
             while (!isStackEmpty(loserStack))
             {
                 t1 = pop(&loserStack);
-                //printf("%s \n", t1.name);
+                //printf("%s\n", t1.name);
             }
             i = 0;
             newnr /= 2;
             fprintf(fout, "\n");
-            fprintf(fout, "WINNERS OF ROUND NO.%d \n", currRound);
+            fprintf(fout, "WINNERS OF ROUND NO:%d\n", currRound);
             currRound++;
             while (i < newnr)
             {
@@ -133,7 +138,7 @@ int main()
                     {
                         root = insert(root, t1);
                     }
-                    fprintf(fout, "%s \t - %.2f \n", t1.name, t1.totalPoints);
+                    fprintf(fout, "%-34s-  %.2f\n", t1.name, t1.totalPoints);
                 }
                 else
                 {
@@ -142,7 +147,7 @@ int main()
                     {
                         root = insert(root, t2);
                     }
-                    fprintf(fout, "%s \t - %.2f \n", t2.name, t2.totalPoints);
+                    fprintf(fout, "%-34s-  %.2f\n", t2.name, t2.totalPoints);
                     currMatch.team1 = t1;
                     currMatch.team2 = t2;
                     enQueue(q, currMatch);
@@ -154,11 +159,11 @@ int main()
     if (tasks[3])
     {
         fprintf(fout, "\n");
-        fprintf(fout, "TOP 8 TEAMS: \n");
+        fprintf(fout, "TOP 8 TEAMS:\n");
         for (i = 0; i < 8; i++)
         {
             currNode = maxValueNode(root);
-            fprintf(fout, "%s\t- %.2f \n", currNode->data.name, currNode->data.totalPoints);
+            fprintf(fout, "%-34s-  %.2f\n", currNode->data.name, currNode->data.totalPoints);
             rootAVL = insertAVL(rootAVL, currNode->data);
             root = deleteNode(root, currNode->data);
 
@@ -170,6 +175,8 @@ int main()
         fprintf(fout, "\n");
         fprintf(fout, "THE LEVEL 2 TEAMS ARE: \n");
         printNodesLevel2(rootAVL, fout);
+		fprintf(fout,"\n");
+		fclose(fout); 
         currNode = maxValueNode(rootAVL);
         rootAVL = deleteNode(rootAVL, currNode->data);
     }
