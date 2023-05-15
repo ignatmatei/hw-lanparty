@@ -1,8 +1,8 @@
 # hw-lanparty
 ca sa rulezi :
 1) make build in fisierul cu solutia
-2) ./lanParty
-3) in r.out vei avea generat raspunsul
+2) make run
+4) in r.out vei avea generat raspunsul
 
 Structuri de date :
 Toate structurile le am organizat intr o substructura de data si una care face legatura cu urmatorul el din motive de eficienta in prelucrarea datelor.
