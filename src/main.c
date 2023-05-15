@@ -1,6 +1,7 @@
 #include "useful_stuff.h"
-int main()
+int main(int argc, char* argv[])
 {
+	
     int noOfTeams, i, j, x, newnr, nrOfTeamsToBeDeleted;
     int* tasks;
     float val;
@@ -17,11 +18,11 @@ int main()
     FILE* f;
     FILE* fout;
     tasks = (int*)(malloc(5 * sizeof(int)));
-    f = fopen("c.in", "r");
+    f = fopen(argv[1], "r");
     fscanf(f, "%d %d %d %d %d", &tasks[0], &tasks[1], &tasks[2], &tasks[3], &tasks[4]);
     fclose(f);
     if(tasks[0]){
-    f = fopen("d.in", "r");
+    f = fopen(argv[2], "r");
     fscanf(f, "%d", &noOfTeams);
     for (i = 0; i < noOfTeams; i++)
         {
@@ -54,7 +55,7 @@ int main()
             fgets(gol, 10, f);
     }
     fclose(f); 
-    fout = fopen("r.out", "w");
+    fout = fopen(argv[3], "w");
        if(tasks[1] == 0)
 		   printList(head, fout);
     }
